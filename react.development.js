@@ -636,7 +636,7 @@
 	var pureComponentPrototype = PureComponent.prototype = new ComponentDummy();
 	pureComponentPrototype.constructor = PureComponent; // Avoid an extra prototype jump for these methods.
 
-	// ？？？，为什么还要赋值一次
+	// ？？，为什么还要赋值一次
 	objectAssign(pureComponentPrototype, Component.prototype);
 
 	pureComponentPrototype.isPureReactComponent = true;
