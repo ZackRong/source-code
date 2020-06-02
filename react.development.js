@@ -600,6 +600,7 @@
 			replaceState: ['replaceState', 'Refactor your code to use setState instead (see ' + 'https://github.com/facebook/react/issues/3236).']
 		};
 
+		// 不让访问指定方法
 		var defineDeprecationWarning = function (methodName, info) {
 			Object.defineProperty(Component.prototype, methodName, {
 				get: function () {
@@ -635,6 +636,7 @@
 	var pureComponentPrototype = PureComponent.prototype = new ComponentDummy();
 	pureComponentPrototype.constructor = PureComponent; // Avoid an extra prototype jump for these methods.
 
+	// ？？？，为什么还要赋值一次
 	objectAssign(pureComponentPrototype, Component.prototype);
 
 	pureComponentPrototype.isPureReactComponent = true;
@@ -645,6 +647,7 @@
 			current: null
 		};
 
+		// 冻结起来，只能改current的值
 		{
 			Object.seal(refObject);
 		}
