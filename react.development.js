@@ -696,6 +696,7 @@
 		return config.key !== undefined;
 	}
 
+	// 访问key时进行警告，只警告一次
 	function defineKeyPropWarningGetter(props, displayName) {
 		var warnAboutAccessingKey = function () {
 			{
@@ -714,6 +715,7 @@
 		});
 	}
 
+	// 访问ref时进行警告，只警告一次
 	function defineRefPropWarningGetter(props, displayName) {
 		var warnAboutAccessingRef = function () {
 			{
@@ -732,6 +734,7 @@
 		});
 	}
 
+	// 使用字符串ref时，进行警告，只警告一次
 	function warnIfStringRefCannotBeAutoConverted(config) {
 		{
 			if (typeof config.ref === 'string' && ReactCurrentOwner.current && config.__self && ReactCurrentOwner.current.stateNode !== config.__self) {
@@ -851,6 +854,7 @@
 			source = config.__source === undefined ? null : config.__source; // Remaining properties are added to a new props object
 
 			for (propName in config) {
+				// 指定的key不能传
 				if (hasOwnProperty$1.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
 					props[propName] = config[propName];
 				}
@@ -884,6 +888,7 @@
 			var defaultProps = type.defaultProps;
 
 			for (propName in defaultProps) {
+				// 值为undefined才会用默认值
 				if (props[propName] === undefined) {
 					props[propName] = defaultProps[propName];
 				}
@@ -906,6 +911,7 @@
 
 		return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
 	}
+	// 替换key
 	function cloneAndReplaceKey(oldElement, newKey) {
 		var newElement = ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
 		return newElement;
